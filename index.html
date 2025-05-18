@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lukáš | Fitness Trenér</title>
+    <link href="fonts/Poppins/Poppins.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <script src="js/chart.min.js"></script>
+</head>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #0d0d0d;
+        color: #fff;
+    }
+
+    nav {
+        background-color: #161b22;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid #00bfff;
+    }
+
+    .navbar-left {
+        margin-right: auto;
+        font-weight: bold;
+        color: #58a6ff;
+        position: relative;
+        left: -1rem;
+    }
+
+    nav a {
+        color: #58a6ff;
+        text-decoration: none;
+        margin: 0 1rem;
+        font-weight: bold;
+        transition: color 0.2s ease-in-out;
+    }
+
+    nav a:hover {
+        color: #1f6feb;
+    }
+
+    .navbar-left a {
+        font-weight: bold;
+        color: #58a6ff;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .navbar-left a:hover {
+        color: #1f6feb;
+    }
+
+    header {
+        padding: 60px 20px;
+        text-align: center;
+        background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    }
+
+    .header-content {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 50%;
+    }
+
+    .avatar {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 20px;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: 4px solid #00bfff;
+        margin-bottom: 20px;
+        box-shadow: 0 0 20px #00bfff;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #00bfff;
+    }
+
+    .cta {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 25px;
+        background: #0d0d0d;
+        color: #00bfff;
+        text-decoration: none;
+        border: 2px solid #00bfff;
+        border-radius: 8px;
+        transition: border-color 0.3s;
+    }
+
+    .cta:hover {
+        border-color: #fff;
+    }
+
+    section {
+        padding: 60px 20px;
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .skills,
+    .projects {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .card {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 12px;
+        flex: 1 1 250px;
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+        color: #ffffff;
+    }
+
+    .card h3 {
+        margin-bottom: 10px;
+        color: #00bfff;
+    }
+
+    footer {
+        background: #111;
+        text-align: center;
+        padding: 15px;
+        color: #aaa;
+    }
+
+    footer a {
+        color: #00bfff;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 1.5rem;
+        transition: color 0.3s;
+    }
+
+    footer a:hover {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    footer p a {
+        font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 80%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 2px solid #00bfff;
+        border-radius: 5px;
+        background-color: #1a1a1a;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px #1a1a1a inset !important;
+        -webkit-text-fill-color: #fff !important;
+        transition: background-color 5000s ease-in-out 0s !important;
+    }
+
+    button.cta {
+        background: #0d0d0d;
+        color: #00bfff;
+        border: 2px solid #00bfff;
+        padding: 10px 25px;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: border-color 0.3s;
+    }
+
+    button.cta:hover {
+        border-color: #fff;
+    }
+
+    .pricing-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .pricing-card {
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+        text-align: center;
+        word-break: break-word;
+        flex: 1 1 250px;
+    }
+
+    section h2 {
+        margin-bottom: 40px;
+    }
+
+    .pricing-card h3 {
+        color: #00bfff;
+        margin-bottom: 10px;
+    }
+
+    .pricing-card p:first-of-type {
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #00bfff;
+        text-decoration: underline;
+        text-decoration-color: #00bfff;
+        text-underline-offset: 5px;
+        margin-bottom: 20px;
+    }
+
+    section#kontakt {
+        border: 2px solid #00bfff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: 0 auto;
+        margin-bottom: 40px;
+    }
+
+    .hamburger {
+        margin-left: auto;
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: #58a6ff;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        width: auto;
+        background-color: transparent;
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transition: none;
+        gap: 0;
+    }
+
+    @media (max-width: 768px) {
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-left {
+            position: relative;
+            left: -2rem;
+        }
+
+        .hamburger {
+            margin-left: auto;
+        }
+
+        .header-content {
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .avatar {
+            display: none;
+        }
+
+        .skills,
+        .projects,
+        .pricing-cards {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card,
+        .pricing-card {
+            flex: 1 1 100%;
+            max-width: 90%;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: block;
+        }
+
+        .nav-links {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            flex-direction: column;
+            width: 100%;
+            background-color: #161b22;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            z-index: 999;
+        }
+
+        .nav-links.active {
+            opacity: 1;
+            visibility: visible;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        header {
+            text-align: center !important;
+        }
+
+        .header-content {
+            text-align: center !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        body,
+        nav,
+        header,
+        section,
+        footer {
+            text-align: center;
+        }
+
+        .header-content,
+        .navbar-left,
+        .nav-links,
+        .skills,
+        .projects,
+        .pricing-cards {
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-left {
+            position: relative;
+            left: -2rem;
+        }
+
+        .hamburger {
+            margin-left: auto;
+        }
+
+        .nav-links {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            flex-direction: column;
+            width: 100%;
+            background-color: #161b22;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            z-index: 999;
+        }
+
+        .nav-links.active {
+            opacity: 1;
+            visibility: visible;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .header-content {
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .avatar {
+            display: none;
+        }
+
+        .skills,
+        .projects,
+        .pricing-cards {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card,
+        .pricing-card {
+            flex: 1 1 100%;
+            max-width: 90%;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+        }
+
+        header {
+            text-align: center !important;
+        }
+
+        .header-content {
+            text-align: center !important;
+        }
+    }
+
+    .navbar-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+</style>
+
+<body>
+    <nav>
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <a href="#">Fitness Trenér</a>
+            </div>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
+            <div class="nav-links">
+                <a href="#o-mne">O mně</a>
+                <a href="#sluzby">Moje služby</a>
+                <a href="#projekty">Proměny klientů</a>
+                <a href="#cenik">Ceník</a>
+                <a href="#kontakt">Kontaktuj mě</a>
+            </div>
+        </div>
+    </nav>
+    <header>
+        <div class="header-content" style="text-align: left;">
+            <h1>Fitness trenér</h1><br>
+            <p>Ahoj, jmenuji se Lukáš a jsem certifikovaný fitness trenér s více než deseti lety zkušeností.
+                Nabízím také výživové poradenství a možnost online coachingu.</p><br>
+            <p>Neváhej a domluv si se mnou první schůzku, která je zcela zdarma.</p>
+            <p>Společně se podíváme, jaké jsou tvé cíle a jak jich můžeme společně dosáhnout.</p><br>
+            <p>Co pro sebe můžeš udělat dnes, neodkládej na zítra.</p>
+            <a href="#kontakt" class="cta">Zarezervuj si trénink</a>
+        </div>
+        <img src="images/avatar3.png" alt="Lukáš" class="avatar">
+    </header>
+
+    <section id="o-mne" style="max-width: 960px; margin: 0 auto;">
+        <h2 style="text-align: center;">O mě</h2>
+        <p>Pomáhám lidem dosahovat jejich fitness cílů skrze individuální plány, podporu a motivaci. Věřím, že zdraví a
+            kondice by měly být dostupné pro každého.</p><br>
+        <p>Mám více než deset let zkušeností v oblasti fitness a výživy, během kterých jsem pomohl stovkám klientů
+            dosáhnout jejich cílů. Jsem vášnivý sportovec a neustále se vzdělávám v nových trendech a technikách, abych
+            mohl svým klientům nabídnout to nejlepší.</p><br>
+        <p>Kromě fitness se zajímám o zdravý životní styl, psychologii a osobní rozvoj. Mým cílem je inspirovat a
+            motivovat ostatní k tomu, aby žili zdravěji a šťastněji.</p>
+    </section>
+
+    <section id="sluzby" style="text-align: center;">
+        <h2>Moje Služby</h2>
+        <div class="skills">
+            <div class="card">
+                <h3>Online Coaching</h3>
+                <p>Plně personalizovaný tréninkový plán na dálku s pravidelným dohledem.</p>
+            </div>
+            <div class="card">
+                <h3>Plány stravy</h3>
+                <p>Nutriční poradenství a plány na míru tvým cílům.</p>
+            </div>
+            <div class="card">
+                <h3>1:1 tréninky</h3>
+                <p>Individuální vedení v posilovně nebo venku, zaměření na techniku a progres.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projekty" style="text-align: center;">
+        <h2>Proměny klientů</h2>
+        <div class="projects">
+            <div class="card">
+                <h3>Klient #1</h3>
+                <p>-10 kg za 3 měsíce s kombinací tréninku a stravy</p>
+            </div>
+            <div class="card">
+                <h3>Klient #2</h3>
+                <p>Vybudovaná svalová hmota a zlepšená mobilita</p>
+            </div>
+            <div class="card">
+                <h3>Klient #3</h3>
+                <p>Celková změna životního stylu a sebevědomí</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cenik" style="text-align: center;">
+        <h2>Ceník</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card">
+                <h3>Online Coaching</h3>
+                <p>2000 Kč / měsíc</p>
+                <p>Plně personalizovaný tréninkový plán na dálku s pravidelným dohledem. Zahrnuje týdenní konzultace,
+                    přizpůsobení plánu podle pokroku a neomezenou podporu přes e-mail.</p>
+            </div>
+            <div class="pricing-card">
+                <h3>Plány stravy</h3>
+                <p>1500 Kč / plán</p>
+                <p>Nutriční poradenství a plány na míru tvým cílům. Zahrnuje analýzu stravovacích návyků, doporučení pro
+                    zlepšení a přizpůsobení plánu podle tvého životního stylu.</p>
+            </div>
+            <div class="pricing-card">
+                <h3>1:1 tréninky</h3>
+                <p>500 Kč / hodina</p>
+                <p>Individuální vedení v posilovně nebo venku, zaměření na techniku a progres. Zahrnuje osobní
+                    tréninkové sezení, sledování pokroku a motivaci k dosažení tvých cílů.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" style="text-align: center;">
+        <h2>Kontaktuj mě</h2>
+        <form action="https://formspree.io/f/{your-form-id}" method="post">
+            <input type="text" name="name" placeholder="Tvoje jméno" required><br><br>
+            <input type="email" name="email" placeholder="Tvůj e-mail" required><br><br>
+            <textarea name="message" placeholder="Zpráva" rows="4" required></textarea><br><br>
+            <button type="submit" class="cta">Odeslat</button>
+        </form>
+    </section>
+
+    <footer>
+        <div>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p>&copy; 2025 Fitness trenér</p>
+        <p>Web&Apps by<a href="https://www.moje-webovka.cz">just_marrty</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const links = document.querySelectorAll('.nav-links a');
+
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!navLinks.contains(event.target) && !hamburger.contains(event.target)) {
+                    navLinks.classList.remove('active');
+                }
+            });
+
+            links.forEach(link => {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
